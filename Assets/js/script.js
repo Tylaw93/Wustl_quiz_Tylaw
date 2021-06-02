@@ -46,31 +46,64 @@ function startquiz(){
         }, 1000);
         pick = Math.floor(Math.random()* (questionKey.length -1))
         question.textContent = questionKey[pick].title;
-        var i =1
-        for (x in questionKey[pick].choices){
-            let options = document.createTextNode(questionKey[pick].choices[x]+ " ")
-            let num = document.createTextNode(i + ":  ")
-        let answerArea= document.createElement("BUTTON");
-        answerArea.setAttribute("id", i) 
-        console.log(answerArea)
-        answerArea.appendChild(num);
-        answerArea.appendChild(options);
-        i++
-        document.querySelector("#answers").appendChild(answerArea)
-    }
-        
+        for(var x=0;x<4;x++){
+            let test = document.createElement("BUTTON")
+            test.setAttribute("id","choice" + x)
+            test.textContent = questionKey[pick].choices[x]
+            document.querySelector("#answers").appendChild(test)
+        }
+        console.log(pick)
+    getQuestion(pick, timeLeft)      
     })
-    var ans1= document.getElementById("1")
-    var ans2=document.getElementById("2")
-    var ans3=document.getElementById("3")
-    var ans4=document.getElementById("4")
-   ans1.onclick=function(){
-       if(questionKey[pick].choices[0] == questionKey[pick].answer){
-           console.log("yes")
-       }
-       else{
-           console.log("still yes")
-       }
-   }
+    
+}
+function getQuestion(pick, timeLeft) {
+    
+        var ans1 = document.querySelector("#choice0")
+        var ans2 = document.querySelector("#choice1")
+        var ans3 = document.querySelector("#choice2")
+        var ans4 = document.querySelector("#choice3")
+    
+    ans1.onclick=function(){
+        if(questionKey[pick].choices[0] == questionKey[pick].answer){
+            getQuestion()
+        }
+        else{
+            timeLeft-=5
+            getQuestion()
+        }
+
+    }
+       
+    ans2.onclick=function(){
+        if(questionKey[pick].choices[1] == questionKey[pick].answer){
+            getQuestion()
+        }
+        else{
+            timeLeft-=5
+            getQuestion()
+        }
+ 
+    }
+    ans3.onclick=function(){
+        if(questionKey[pick].choices[2] == questionKey[pick].answer){
+            getQuestion()
+        }
+        else{
+            timeLeft-=5
+            getQuestion()
+        }
+ 
+    }
+    ans4.onclick=function(){
+        if(questionKey[pick].choices[3] == questionKey[pick].answer){
+            getQuestion()
+        }
+        else{
+            timeLeft-=5
+            getQuestion()
+        }
+ 
+    } 
 }
 startquiz()
